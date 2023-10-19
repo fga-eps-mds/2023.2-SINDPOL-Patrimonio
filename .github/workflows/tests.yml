@@ -48,7 +48,6 @@ jobs:
   pytest:
     runs-on: ubuntu-latest
     services:
-
       patrimonio-db:
         image: postgres:13.8-bullseye
         env:

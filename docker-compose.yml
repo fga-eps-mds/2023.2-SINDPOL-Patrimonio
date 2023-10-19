@@ -26,6 +26,8 @@ services:
   db:
     image: postgres
     hostname: patrimonio-db
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_PASSWORD: "patrimonio"
       POSTGRES_USER: "patrimonio"
