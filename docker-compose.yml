@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app/src/
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - db
+    environment:
+      PATRIMONIO_HOST: 0.0.0.0
+      PATRIMONIO_DB_HOST: patrimonio-db
+      PATRIMONIO_DB_PORT: 5432
+      PATRIMONIO_DB_USER: patrimonio
+      PATRIMONIO_DB_PASS: patrimonio
+      PATRIMONIO_DB_BASE: patrimonio
+      PATRIMONIO_RELOAD: "True"
+
+  db:
+    image: postgres
+    hostname: patrimonio-db
+    environment:
+      POSTGRES_PASSWORD: "patrimonio"
+      POSTGRES_USER: "patrimonio"
+      POSTGRES_DB: "patrimonio"
+    volumes:
+      - patrimonio-db-data:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: pg_isready -U patrimonio
+      interval: 2s
+      timeout: 3s
+      retries: 40
+
+  migrator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: "no"
+    command: alembic upgrade head
+    environment:
+      PATRIMONIO_DB_HOST: patrimonio-db
+      PATRIMONIO_DB_PORT: 5432
+      PATRIMONIO_DB_USER: patrimonio
+      PATRIMONIO_DB_PASS: patrimonio
+      PATRIMONIO_DB_BASE: patrimonio
+    depends_on:
+      - db
+
+volumes:
+  patrimonio-db-data:
+    name: patrimonio-db-data

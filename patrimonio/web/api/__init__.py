@@ -1,0 +1,1 @@
+"""patrimonio API package."""
