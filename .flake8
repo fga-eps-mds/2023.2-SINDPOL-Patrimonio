@@ -72,6 +72,12 @@ ignore =
   WPS473,
   ; too many no-cover comments.
   WPS403,
+  D101,
+  D103,
+  D104,
+  WPS432,
+  WPS442,
+  C815,
 
 per-file-ignores =
   ; all tests
