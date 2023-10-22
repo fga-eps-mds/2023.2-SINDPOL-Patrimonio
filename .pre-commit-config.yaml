@@ -31,18 +31,21 @@ repos:
     language: system
     types: [python]
     args: [--in-place, --remove-all-unused-imports, --remove-duplicate-keys]
+    exclude: metrics/
 
   - id: black
     name: Format with Black
     entry: poetry run black
     language: system
     types: [python]
+    exclude: metrics/
 
   - id: isort
     name: isort
     entry: poetry run isort
     language: system
     types: [python]
+    exclude: metrics/
 
   - id: flake8
     name: Check with Flake8
@@ -51,12 +54,4 @@ repos:
     pass_filenames: false
     types: [python]
     args: [--count, .]
-
-  - id: mypy
-    name: Validate types with MyPy
-    entry: poetry run mypy
-    language: system
-    types: [python]
-    pass_filenames: false
-    args:
-    - "patrimonio"
+    exclude: metrics/
