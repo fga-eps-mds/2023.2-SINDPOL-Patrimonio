@@ -64,8 +64,8 @@ filterwarnings = [
     "ignore:.*unclosed.*:ResourceWarning",
 ]
 env = [
-    "PATRIMONIO_ENVIRONMENT=pytest",
-    "PATRIMONIO_DB_BASE=patrimonio_test",
+    "ENVIRONMENT=pytest",
+    "DB_BASE=patrimonio_test",
 ]
 
 [fastapi-template.options]

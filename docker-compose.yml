@@ -6,34 +6,34 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+    - "8000:8000"
     volumes:
-      - .:/app/src/
+    - .:/app/src/
     restart: always
     env_file:
-      - .env
+    - .env
     depends_on:
-      - db
+    - db
     environment:
-      PATRIMONIO_HOST: 0.0.0.0
-      PATRIMONIO_DB_HOST: patrimonio-db
-      PATRIMONIO_DB_PORT: 5432
-      PATRIMONIO_DB_USER: patrimonio
-      PATRIMONIO_DB_PASS: patrimonio
-      PATRIMONIO_DB_BASE: patrimonio
-      PATRIMONIO_RELOAD: "True"
+      HOST: 0.0.0.0
+      DB_HOST: patrimonio-db
+      DB_PORT: 5432
+      DB_USER: patrimonio
+      DB_PASS: patrimonio
+      DB_BASE: patrimonio
+      RELOAD: "True"
 
   db:
     image: postgres
     hostname: patrimonio-db
     ports:
-      - "5432:5432"
+    - "5432:5432"
     environment:
       POSTGRES_PASSWORD: "patrimonio"
       POSTGRES_USER: "patrimonio"
       POSTGRES_DB: "patrimonio"
     volumes:
-      - patrimonio-db-data:/var/lib/postgresql/data
+    - patrimonio-db-data:/var/lib/postgresql/data
     restart: always
     healthcheck:
       test: pg_isready -U patrimonio
@@ -48,13 +48,13 @@ services:
     restart: "no"
     command: alembic upgrade head
     environment:
-      PATRIMONIO_DB_HOST: patrimonio-db
-      PATRIMONIO_DB_PORT: 5432
-      PATRIMONIO_DB_USER: patrimonio
-      PATRIMONIO_DB_PASS: patrimonio
-      PATRIMONIO_DB_BASE: patrimonio
+      DB_HOST: patrimonio-db
+      DB_PORT: 5432
+      DB_USER: patrimonio
+      DB_PASS: patrimonio
+      DB_BASE: patrimonio
     depends_on:
-      - db
+    - db
 
 volumes:
   patrimonio-db-data:

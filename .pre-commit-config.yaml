@@ -46,12 +46,3 @@ repos:
     language: system
     types: [python]
     exclude: metrics/
-
-  - id: flake8
-    name: Check with Flake8
-    entry: poetry run flake8
-    language: system
-    pass_filenames: false
-    types: [python]
-    args: [--count, .]
-    exclude: metrics/

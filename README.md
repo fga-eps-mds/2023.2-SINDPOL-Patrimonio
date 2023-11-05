@@ -57,18 +57,11 @@ This application can be configured with environment variables.
 You can create `.env` file in the root directory and place all
 environment variables here.
 
-All environment variables should start with "PATRIMONIO_" prefix.
-
-For example if you see in your "patrimonio/settings.py" a variable named like
-`random_parameter`, you should provide the "PATRIMONIO_RANDOM_PARAMETER"
-variable to configure the value. This behaviour can be changed by overriding `env_prefix` property
-in `patrimonio.settings.Settings.Config`.
-
 An example of .env file:
 ```bash
-PATRIMONIO_RELOAD="True"
-PATRIMONIO_PORT="8000"
-PATRIMONIO_ENVIRONMENT="dev"
+RELOAD="True"
+PORT="8000"
+ENVIRONMENT="dev"
 ```
 
 You can read more about BaseSettings class here: https://pydantic-docs.helpmanual.io/usage/settings/
