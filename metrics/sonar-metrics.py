@@ -35,7 +35,7 @@ def generate_metrics():
         date = datetime.now()
         date_padrao_hilmer = f"{date.month}-{date.day}-{date.year}-{date.hour}-{date.minute}-{date.second}"  # noqa E501
 
-        filename = f"{prefix}-{underlined_repo_name}-{date_padrao_hilmer}-{repository_version}.json"  # noqa E501
+        filename = f"./analytics-raw-data/{prefix}-{underlined_repo_name}-{date_padrao_hilmer}-{repository_version}.json"  # noqa E501
         with open(filename, "w") as file:
             json.dump(data, file)
 
