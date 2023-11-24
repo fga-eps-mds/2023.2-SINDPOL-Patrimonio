@@ -10,12 +10,14 @@ from patrimonio.web.api.patrimony.schemas import CreatePatrimonyDTO, UpdatePatri
 
 router = APIRouter()
 
+
 @router.get("/")
 async def get_patrimonys(
     limit: int = 10,
     offset: int = 0,
 ) -> List[Patrimony]:
-    return await Patrimony.objects.limit(limit).offset(offset,).all()
+    return await Patrimony.objects.limit(limit).offset(offset).all()
+
 
 @router.get("/{patrimony_id}")
 async def get_patrimony(patrimony_id: str) -> Patrimony:
@@ -24,6 +26,7 @@ async def get_patrimony(patrimony_id: str) -> Patrimony:
     except Exception:
         logging.error("Error occurred while get patrimony", exc_info=True)
         raise HTTPException(status_code=404, detail="Patrimony not found")
+
 
 @router.post("/")
 async def create_patrimony(patrimony: CreatePatrimonyDTO) -> Patrimony:
@@ -36,10 +39,11 @@ async def create_patrimony(patrimony: CreatePatrimonyDTO) -> Patrimony:
         return await Patrimony.objects.get(id=patrimony_id)
     except UniqueViolationError:
         logging.error("Patrimony already exists", exc_info=True)
-        raise HTTPException(status_code=400, detail="Patrimony already exists",)
+        raise HTTPException(status_code=400, detail="Patrimony already exists")
     except Exception:
         logging.error("Error occurred while creating patrimony", exc_info=True)
-        raise HTTPException(status_code=400, detail="Error occurred while creating patrimony",)
+        raise HTTPException(status_code=400, detail="Error occurred while creating patrimony")
+
 
 @router.put("/{patrimony_id}")
 async def update_patrimony(patrimony_id: str, update_patrimony: UpdatePatrimonyDTO) -> Patrimony:
@@ -49,7 +53,8 @@ async def update_patrimony(patrimony_id: str, update_patrimony: UpdatePatrimonyD
         return await Patrimony.objects.get(id=patrimony_id)
     except Exception:
         logging.error("Patrimony not found", exc_info=True)
-        raise HTTPException(status_code=404, detail="Patrimony not found",)
+        raise HTTPException(status_code=404, detail="Patrimony not found")
+
 
 @router.delete("/{patrimony_id}")
 async def delete_patrimony(patrimony_id: str) -> None:
@@ -57,4 +62,4 @@ async def delete_patrimony(patrimony_id: str) -> None:
         await Patrimony.objects.delete(id=patrimony_id)
     except Exception:
         logging.error("Error occurred while deleting patrimony", exc_info=True)
-        raise HTTPException(status_code=404, detail="Error occurred while deleting patrimony",)
+        raise HTTPException(status_code=404, detail="Error occurred while deleting patrimony")
