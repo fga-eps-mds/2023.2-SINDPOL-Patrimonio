@@ -10,14 +10,12 @@ from patrimonio.web.api.patrimony.schemas import CreatePatrimonyDTO, UpdatePatri
 
 router = APIRouter()
 
-
 @router.get("/")
 async def get_patrimonys(
     limit: int = 10,
     offset: int = 0,
 ) -> List[Patrimony]:
     return await Patrimony.objects.limit(limit).offset(offset,).all()
-
 
 @router.get("/{patrimony_id}")
 async def get_patrimony(patrimony_id: str) -> Patrimony:
@@ -26,7 +24,6 @@ async def get_patrimony(patrimony_id: str) -> Patrimony:
     except Exception:
         logging.error("Error occurred while get patrimony", exc_info=True)
         raise HTTPException(status_code=404, detail="Patrimony not found")
-
 
 @router.post("/")
 async def create_patrimony(patrimony: CreatePatrimonyDTO) -> Patrimony:
@@ -44,7 +41,6 @@ async def create_patrimony(patrimony: CreatePatrimonyDTO) -> Patrimony:
         logging.error("Error occurred while creating patrimony", exc_info=True)
         raise HTTPException(status_code=400, detail="Error occurred while creating patrimony",)
 
-
 @router.put("/{patrimony_id}")
 async def update_patrimony(patrimony_id: str, update_patrimony: UpdatePatrimonyDTO) -> Patrimony:
     try:
@@ -54,7 +50,6 @@ async def update_patrimony(patrimony_id: str, update_patrimony: UpdatePatrimonyD
     except Exception:
         logging.error("Patrimony not found", exc_info=True)
         raise HTTPException(status_code=404, detail="Patrimony not found",)
-
 
 @router.delete("/{patrimony_id}")
 async def delete_patrimony(patrimony_id: str) -> None:
