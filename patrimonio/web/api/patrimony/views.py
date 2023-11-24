@@ -37,11 +37,15 @@ async def create_patrimony(patrimony: CreatePatrimonyDTO) -> Patrimony:
         raise HTTPException(status_code=400, detail="Patrimony already exists")
     except Exception:
         logging.error("Error occurred while creating patrimony", exc_info=True)
-        raise HTTPException(status_code=400, detail="Error occurred while creating patrimony")
+        raise HTTPException(
+            status_code=400, detail="Error occurred while creating patrimony"
+        )
 
 
 @router.put("/{patrimony_id}")
-async def update_patrimony(patrimony_id: str, update_patrimony: UpdatePatrimonyDTO) -> Patrimony:
+async def update_patrimony(
+    patrimony_id: str, update_patrimony: UpdatePatrimonyDTO
+) -> Patrimony:
     try:
         patrimony = await Patrimony.objects.get(id=patrimony_id)
         await patrimony.update(**update_patrimony.dict(exclude_none=True))
@@ -57,4 +61,6 @@ async def delete_patrimony(patrimony_id: str) -> None:
         await Patrimony.objects.delete(id=patrimony_id)
     except Exception:
         logging.error("Error occurred while deleting patrimony", exc_info=True)
-        raise HTTPException(status_code=404, detail="Error occurred while deleting patrimony")
+        raise HTTPException(
+            status_code=404, detail="Error occurred while deleting patrimony"
+        )
