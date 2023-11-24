@@ -12,10 +12,7 @@ router = APIRouter()
 
 
 @router.get("/")
-async def get_patrimonys(
-    limit: int = 10,
-    offset: int = 0,
-) -> List[Patrimony]:
+async def get_patrimonys(limit: int = 10, offset: int = 0) -> List[Patrimony]:
     return await Patrimony.objects.limit(limit).offset(offset).all()
 
 
@@ -33,9 +30,7 @@ async def create_patrimony(patrimony: CreatePatrimonyDTO) -> Patrimony:
     try:
         create_patrimony_dict = patrimony.dict()
         patrimony_id = str(uuid4())
-        await Patrimony.objects.create(
-            id=patrimony_id, **create_patrimony_dict
-        )
+        await Patrimony.objects.create(id=patrimony_id, **create_patrimony_dict)
         return await Patrimony.objects.get(id=patrimony_id)
     except UniqueViolationError:
         logging.error("Patrimony already exists", exc_info=True)
