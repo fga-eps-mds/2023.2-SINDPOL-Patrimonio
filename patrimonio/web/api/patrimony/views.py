@@ -16,13 +16,7 @@ async def get_patrimonys(
     limit: int = 10,
     offset: int = 0,
 ) -> List[Patrimony]:
-    return (
-        await Patrimony.objects.limit(limit)
-        .offset(
-            offset,
-        )
-        .all()
-    )
+    return await Patrimony.objects.limit(limit).offset(offset,).all()
 
 
 @router.get("/{patrimony_id}")
